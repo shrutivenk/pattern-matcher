@@ -2,7 +2,7 @@ package com.maple;
 
 public class Path {
 
-    static final String PATH_DELIMITER = "/";
+    public static final String PATH_DELIMITER = "/";
     private String pathText;
     private String[] pathFieldValues;
 
