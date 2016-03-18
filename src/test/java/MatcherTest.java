@@ -2,90 +2,94 @@ import com.maple.Matcher;
 import com.maple.Path;
 import com.maple.Pattern;
 import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 
 public class MatcherTest {
 
     @Test
-    public void findBestMatchedPatternTest_NoMatches()
+    public void findBestMatchedPatternTest_NoMatch()
     {
-        List<Pattern> patternList = new ArrayList<>();
-        patternList.add(new Pattern("a,c,d,f,s"));
-        patternList.add(new Pattern("s,g,d,s,g"));
-
-        Path path = new Path("a/b/c/d/e");
-
-        Matcher matcher = new Matcher(path, patternList);
-
-        List<Pattern> bestPatterns = matcher.findBestMatchedPattern();
-        
-        assertEquals(0, bestPatterns.size());
-    }
-
-    @Test
-    public void findBestMatchedPatternTest_ExactMatch() {
-        List<Pattern> patternList = new ArrayList<>();
-        patternList.add(new Pattern("a,*,c,*,e"));
-        patternList.add(new Pattern("*,b,c,d,*"));
-        patternList.add(new Pattern("a,*,*,*,e"));
-        patternList.add(new Pattern("a,b,*,d,e"));
-        patternList.add(new Pattern("a,*,c,d,e"));
-        patternList.add(new Pattern("a,b,c,d,e"));
-        patternList.add(new Pattern("a,c,d,f,s"));
-        patternList.add(new Pattern("s,g,d,s,g"));
-
-        Path path = new Path("a/b/c/d/e");
-
-        Matcher matcher = new Matcher(path, patternList);
-
-        List<Pattern> bestPatterns = matcher.findBestMatchedPattern();
-
-        assertEquals(1, bestPatterns.size());
-        assertEquals("a,b,c,d,e", bestPatterns.get(0).getPatternText());
-    }
-
-    @Test
-    public void findBestMatchedPatternTest_OneWildcard() {
-        List<Pattern> patternList = new ArrayList<>();
-        patternList.add(new Pattern("a,*,c,*,e"));
-        patternList.add(new Pattern("*,b,c,d,*"));
-        patternList.add(new Pattern("a,*,*,*,e"));
-        patternList.add(new Pattern("a,b,*,d,e"));
-        patternList.add(new Pattern("a,*,c,d,e"));
-        patternList.add(new Pattern("a,c,d,f,s"));
-        patternList.add(new Pattern("s,g,d,s,g"));
-
-        Path path = new Path("a/b/c/d/e");
-
-        Matcher matcher = new Matcher(path, patternList);
-
-        List<Pattern> bestPatterns = matcher.findBestMatchedPattern();
-
-        assertEquals(2, bestPatterns.size());
-        assertEquals("a,b,*,d,e", bestPatterns.get(0).getPatternText());
-    }
-
-    @Test
-    public void findBestMatchedPatternTest_TwoWildcards() {
         List<Pattern> patternList = new ArrayList<>();
         patternList.add(new Pattern("a,*,c,*,e"));
         patternList.add(new Pattern("*,b,c,d,*"));
         patternList.add(new Pattern("a,b,c,*,*"));
-        patternList.add(new Pattern("a,*,*,*,e"));
-        patternList.add(new Pattern("a,c,d,f,s"));
-        patternList.add(new Pattern("s,g,d,s,g"));
+
+        Path path = new Path("g/h/i/j/k");
+
+        Matcher matcher = new Matcher(path, patternList);
+
+        String winningPattern = matcher.findBestMatchedPattern();
+
+        assertEquals(winningPattern, Matcher.NO_MATCH);
+    }
+
+    @Test
+    public void findBestMatchedPattern_ExactMatch()
+    {
+        List<Pattern> patternList = new ArrayList<>();
+        patternList.add(new Pattern("a,b,c,d,*"));
+        patternList.add(new Pattern("a,b,c,d,e"));
+        patternList.add(new Pattern("a,b,c,*,*"));
 
         Path path = new Path("a/b/c/d/e");
 
         Matcher matcher = new Matcher(path, patternList);
 
-        List<Pattern> bestPatterns = matcher.findBestMatchedPattern();
+        String winningPattern = matcher.findBestMatchedPattern();
 
-        assertEquals(3, bestPatterns.size());
-        assertEquals("a,*,c,*,e", bestPatterns.get(0).getPatternText());
+        assertEquals(winningPattern, "a,b,c,d,e");
+    }
+
+    @Test
+    public void findWinningPatternTest_PicksLeastWildCard_NoTie()
+    {
+        List<Pattern> patternList = new ArrayList<>();
+        patternList.add(new Pattern("*,b,*,d,e"));
+        patternList.add(new Pattern("*,b,c,*,e"));
+        patternList.add(new Pattern("a,*,c,d,e"));
+
+        Path path = new Path("a/b/c/d/e");
+
+        Matcher matcher = new Matcher(path, patternList);
+
+        String winningPattern = matcher.findBestMatchedPattern();
+
+        assertEquals(winningPattern, "a,*,c,d,e");
+    }
+
+    @Test
+    public void findWinningPatternTest_PicksLeastWildCard_ResolveTie()
+    {
+        List<Pattern> patternList = new ArrayList<>();
+        patternList.add(new Pattern("*,b,*,*,e,f"));
+        patternList.add(new Pattern("*,b,*,d,*,f"));
+        patternList.add(new Pattern("*,b,*,d,e,*"));
+
+        Path path = new Path("a/b/c/d/e/f");
+
+        Matcher matcher = new Matcher(path, patternList);
+
+        String winningPattern = matcher.findBestMatchedPattern();
+
+        assertEquals(winningPattern, "*,b,*,d,e,*");
+    }
+
+    @Test
+    public void findWinningPatternTest_ResolveTie_fieldContainAsterisk()
+    {
+        List<Pattern> patternList = new ArrayList<>();
+        patternList.add(new Pattern("*,b,*,*,e*,f,g"));
+        patternList.add(new Pattern("*,b,*,d,*,f,g"));
+        patternList.add(new Pattern("*,b,*,d,e*,*,g"));
+
+        Path path = new Path("a/b/c/d/e*/f/g");
+
+        Matcher matcher = new Matcher(path, patternList);
+
+        String winningPattern = matcher.findBestMatchedPattern();
+
+        assertEquals(winningPattern, "*,b,*,d,e*,*,g");
     }
 }
