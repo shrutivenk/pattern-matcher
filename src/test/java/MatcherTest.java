@@ -92,4 +92,21 @@ public class MatcherTest {
 
         assertEquals(winningPattern, "*,b,*,d,e*,*,g");
     }
+
+    @Test
+    public void findWinningPatternTest_SpecialChars()
+    {
+        List<Pattern> patternList = new ArrayList<>();
+        patternList.add(new Pattern("!!!,@@@,###,$$$"));
+        patternList.add(new Pattern("!**,@**,*,$**"));
+        patternList.add(new Pattern("1,2,3,4,*"));
+
+        Path path = new Path("!!!/@@@/###/$$$");
+
+        Matcher matcher = new Matcher(path, patternList);
+
+        String winningPattern = matcher.findBestMatchedPattern();
+
+        assertEquals(winningPattern, "!!!,@@@,###,$$$");
+    }
 }
