@@ -22,7 +22,7 @@ public class MatcherTest {
         Matcher matcher = new Matcher(path, patternList);
 
         List<Pattern> bestPatterns = matcher.findBestMatchedPattern();
-
+        
         assertEquals(0, bestPatterns.size());
     }
 
@@ -44,6 +44,7 @@ public class MatcherTest {
 
         List<Pattern> bestPatterns = matcher.findBestMatchedPattern();
 
+        assertEquals(1, bestPatterns.size());
         assertEquals("a,b,c,d,e", bestPatterns.get(0).getPatternText());
     }
 
@@ -64,6 +65,7 @@ public class MatcherTest {
 
         List<Pattern> bestPatterns = matcher.findBestMatchedPattern();
 
+        assertEquals(2, bestPatterns.size());
         assertEquals("a,b,*,d,e", bestPatterns.get(0).getPatternText());
     }
 
@@ -72,6 +74,7 @@ public class MatcherTest {
         List<Pattern> patternList = new ArrayList<>();
         patternList.add(new Pattern("a,*,c,*,e"));
         patternList.add(new Pattern("*,b,c,d,*"));
+        patternList.add(new Pattern("a,b,c,*,*"));
         patternList.add(new Pattern("a,*,*,*,e"));
         patternList.add(new Pattern("a,c,d,f,s"));
         patternList.add(new Pattern("s,g,d,s,g"));
@@ -82,6 +85,7 @@ public class MatcherTest {
 
         List<Pattern> bestPatterns = matcher.findBestMatchedPattern();
 
+        assertEquals(3, bestPatterns.size());
         assertEquals("a,*,c,*,e", bestPatterns.get(0).getPatternText());
     }
 }

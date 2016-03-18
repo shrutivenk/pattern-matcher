@@ -1,23 +1,25 @@
 package com.maple;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Path {
 
     public static final String PATH_DELIMITER = "/";
     private String pathText;
-    private String[] pathFieldValues;
+    private List<String> pathFieldValues;
 
-    public Path(String incomingPath) {
-        pathText = incomingPath;
-        pathFieldValues = incomingPath.split(PATH_DELIMITER);
+    public Path(String pathText) {
+        this.pathText = pathText;
+        pathFieldValues = Arrays.asList(pathText.split(PATH_DELIMITER));
     }
 
     public String getPathText() {
         return pathText;
     }
 
-    public String[] getPathFieldValues(){
+    public List<String> getPathFieldValues(){
         return pathFieldValues;
     }
-
 
 }

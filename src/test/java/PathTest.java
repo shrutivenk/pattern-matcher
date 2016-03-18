@@ -1,7 +1,9 @@
 import com.maple.Path;
 import org.junit.Test;
 
-import static org.junit.Assert.assertArrayEquals;
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 public class PathTest {
@@ -16,9 +18,13 @@ public class PathTest {
     @Test
     public void checkPathValuesArray(){
         Path path = new Path("t/e/s/t");
-        String[] valuesArray = {"t", "e", "s", "t"};
+        List<String> valuesList = new ArrayList<String>();
+        valuesList.add(0,"t");
+        valuesList.add(1,"e");
+        valuesList.add(2,"s");
+        valuesList.add(3,"t");
 
-        assertArrayEquals(valuesArray, path.getPathFieldValues());
+        assertEquals(valuesList, path.getPathFieldValues());
     }
 
 }

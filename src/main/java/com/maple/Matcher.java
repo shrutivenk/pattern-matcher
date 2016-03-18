@@ -25,8 +25,8 @@ public class Matcher {
 
         Map<Integer, List<Pattern>> patternMap = allPossiblePatterns.stream()
                 .parallel()
-                .filter(i -> isPatternAMatch(i))
-                .collect(Collectors.groupingBy(i -> numberOfWildcardsInPattern(i)));
+                .filter(this::isPatternAMatch)
+                .collect(Collectors.groupingBy(this::numberOfWildcardsInPattern));
 
         return patternMap.isEmpty() ? new ArrayList<>() : patternMap.get(Collections.min(patternMap.keySet()));
 
@@ -56,9 +56,11 @@ public class Matcher {
     private int numberOfWildcardsInPattern(Pattern pattern) {
         return ((int) Arrays.asList(pattern.getPatternText().split(Pattern.PATTERN_DELIMITER)).
                 stream()
-                .filter(i -> i.toString().equals(Pattern.WILDCARD))
+                .filter(i -> i.equals(Pattern.WILDCARD))
                 .count());
     }
+
+
 }
 
 
