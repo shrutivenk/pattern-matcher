@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class InputReader {
 
@@ -38,33 +39,24 @@ public class InputReader {
 
         int numberOfPatterns = Integer.parseInt(scanner.nextLine());
 
-        for (int i = 0; i < numberOfPatterns; i++) {
-            if (scanner.hasNext())
-            {
-                String patternText = scanner.nextLine();
-                Pattern pattern = new Pattern(patternText);
-                patternList.add(pattern);
-            }
-            else
-                break;
-        }
+        IntStream.range(0, numberOfPatterns)
+                .forEach(i -> {if (scanner.hasNext()) {
+                    Pattern pattern = new Pattern(scanner.nextLine());
+                    patternList.add(pattern);
+                }});
     }
 
     private void readPathsAndAddToList(Scanner scanner){
+
         while (!scanner.hasNextInt())
             scanner.nextLine();
 
         int numberOfPaths = Integer.parseInt(scanner.nextLine());
 
-        for (int i = 0; i < numberOfPaths; i++) {
-            if (scanner.hasNext()) {
-                String pathText = PatternMatcherUtils.trimLeadingAndTrailingDelimiter(scanner.nextLine(), Path.PATH_DELIMITER);
-                Path path = new Path(pathText);
-                pathList.add(path);
-            }
-            else
-                break;
-        }
+        IntStream.range(0, numberOfPaths)
+                .forEach(i -> {if (scanner.hasNext()) {
+                    Path path = new Path(scanner.nextLine());
+                    pathList.add(path);
+                }});
     }
-
 }
