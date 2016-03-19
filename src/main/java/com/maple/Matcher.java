@@ -14,6 +14,10 @@ public class Matcher {
         allPossiblePatterns = sameLengthPatterns;
     }
 
+    /**
+     * findBestMatchedPattern returns the Pattern text for the best matched pattern for a path
+     * @return String representing best matched Pattern text for the path
+     */
     public String findBestMatchedPattern() {
         List<Pattern> bestMatchedPatternsList = findMatchedPatternsWithLeastWildcards();
 
@@ -69,12 +73,23 @@ public class Matcher {
                 .count());
     }
 
-
+    /**
+     * resolveTieForBestPattern uses stream reduce to resolve tie between 2 patterns at a time and return the winning pattern
+     * @param patterns
+     * @return best matched pattern for this path
+     */
     private String resolveTieForBestPattern(List<Pattern> patterns) {
         Optional<Pattern> winningPattern = patterns.stream().reduce(this::resolveTieBetweenTwoPatterns);
         return winningPattern.get().getPatternText();
     }
 
+    /**
+     * resolveTieBetweenTwoPatterns sets the parent pattern to itself and passes the two patterns to be resolved to the
+     * resolveTieBetweenTwoPatternsRecursive method
+     * @param pattern1
+     * @param pattern2
+     * @return best matched pattern between two patterns
+     */
     private Pattern resolveTieBetweenTwoPatterns(Pattern pattern1, Pattern pattern2) {
         pattern1.setSelfAsParentPattern();
         pattern2.setSelfAsParentPattern();
@@ -82,6 +97,13 @@ public class Matcher {
         return resolveTieBetweenTwoPatternsRecursive(pattern1, pattern2);
     }
 
+    /**
+     * resolveTieBetweenTwoPatternsRecursive resolves the tie between two patterns. The pattern with the leftmost wildcard
+     * in the rightmost position wins. If there is still a tie, the rule is applied recursively
+     * @param pattern1
+     * @param pattern2
+     * @return best matched pattern between two pattern
+     */
     private Pattern resolveTieBetweenTwoPatternsRecursive(Pattern pattern1, Pattern pattern2) {
         int pattern1FirstWildcardIndex = pattern1.getPatternFieldValues().indexOf(Pattern.WILDCARD);
         int pattern2FirstWildcardIndex = pattern2.getPatternFieldValues().indexOf(Pattern.WILDCARD);
