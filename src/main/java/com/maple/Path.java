@@ -18,7 +18,7 @@ public class Path {
         return pathText;
     }
 
-    public List<String> getPathFieldValues(){
+    public List<String> getPathFieldValues() {
         return pathFieldValues;
     }
 

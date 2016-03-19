@@ -2,7 +2,7 @@ package com.maple;
 
 import java.nio.charset.StandardCharsets;
 
-public class PrintableOutput{
+public class PrintableOutput {
 
     private String outputToPrint;
 
@@ -25,7 +25,7 @@ public class PrintableOutput{
      */
     @Override
     public boolean equals(Object obj) {
-        PrintableOutput otherPrintableOutput = (PrintableOutput)obj;
+        PrintableOutput otherPrintableOutput = (PrintableOutput) obj;
         return this.outputToPrint.equals(otherPrintableOutput.outputToPrint);
     }
 }

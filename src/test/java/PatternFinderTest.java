@@ -64,5 +64,4 @@ public class PatternFinderTest {
 
         assertEquals(expectedResultOutput, resultList);
     }
-
 }

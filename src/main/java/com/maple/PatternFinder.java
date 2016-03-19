@@ -16,11 +16,12 @@ public class PatternFinder {
     /**
      * getBestMatches takes a list of paths. For each path, it gets the list of patterns with the same size. It then creates a
      * Matcher object for the path and eligible pattern list and calls findBestMatchedPattern on it.
+     *
      * @return a List of PrintableObjects, each represents the best matched pattern for the corresponding path
      */
     public List<PrintableOutput> getBestMatches() {
 
-            return pathList.stream()
+        return pathList.stream()
                 .map(p -> {
                     if (patternMap.containsKey(p.getPathFieldValues().size())) {
                         Matcher matcher = new Matcher(p, patternMap.get(p.getPathFieldValues().size()));

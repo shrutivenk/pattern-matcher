@@ -30,7 +30,9 @@ public class InputReader {
         return patternList.stream().collect(Collectors.groupingBy(i -> i.getPatternFieldValues().size()));
     }
 
-    public List<Path> getPathList() {return pathList;}
+    public List<Path> getPathList() {
+        return pathList;
+    }
 
     private void readPatternsAndAddToList(Scanner scanner) {
 
@@ -40,13 +42,15 @@ public class InputReader {
         int numberOfPatterns = Integer.parseInt(scanner.nextLine());
 
         IntStream.range(0, numberOfPatterns)
-                .forEach(i -> {if (scanner.hasNext()) {
-                    Pattern pattern = new Pattern(scanner.nextLine());
-                    patternList.add(pattern);
-                } else return;});
+                .forEach(i -> {
+                    if (scanner.hasNext()) {
+                        Pattern pattern = new Pattern(scanner.nextLine());
+                        patternList.add(pattern);
+                    }
+                });
     }
 
-    private void readPathsAndAddToList(Scanner scanner){
+    private void readPathsAndAddToList(Scanner scanner) {
 
         while (!scanner.hasNextInt())
             scanner.nextLine();
@@ -54,10 +58,11 @@ public class InputReader {
         int numberOfPaths = Integer.parseInt(scanner.nextLine());
 
         IntStream.range(0, numberOfPaths)
-                .forEach(i -> {if (scanner.hasNext()) {
-                    Path path = new Path(PatternMatcherUtils
-                            .trimLeadingAndTrailingDelimiter(scanner.nextLine(), Path.PATH_DELIMITER));
-                    pathList.add(path);
-                } else return;});
+                .forEach(i -> {
+                    if (scanner.hasNext()) {
+                        Path path = new Path(PatternMatcherUtils.trimLeadingAndTrailingDelimiter(scanner.nextLine(), Path.PATH_DELIMITER));
+                        pathList.add(path);
+                    }
+                });
     }
 }
