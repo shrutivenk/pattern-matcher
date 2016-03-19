@@ -16,8 +16,7 @@ public class PatternTest {
     }
 
     @Test
-    public void setSelfAsParentPatternTest()
-    {
+    public void setSelfAsParentPatternTest() {
         Pattern pattern = new Pattern("test");
         pattern.setSelfAsParentPattern();
 
@@ -25,8 +24,7 @@ public class PatternTest {
     }
 
     @Test
-    public void setParentPatternTest()
-    {
+    public void setParentPatternTest() {
         Pattern pattern = new Pattern("test");
         Pattern parentPattern = new Pattern("parentTest");
         pattern.setParentPattern(parentPattern);
@@ -35,8 +33,7 @@ public class PatternTest {
     }
 
     @Test
-    public void getPatternFieldValuesTest()
-    {
+    public void getPatternFieldValuesTest() {
         Pattern pattern = new Pattern("t,e,s,t");
         List<String> valuesList = new ArrayList<String>();
         valuesList.add(0,"t");

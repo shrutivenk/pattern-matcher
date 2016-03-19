@@ -11,8 +11,7 @@ import static org.junit.Assert.assertEquals;
 public class PatternMatcherUtilsTest {
 
     @Test
-    public void trimLeadingAndTrailingDelimiterTest()
-    {
+    public void trimLeadingAndTrailingDelimiterTest() {
         String trimmedTestString = "a/b/c/d/e";
 
         String testString1 = "/a/b/c/d/e";
@@ -25,8 +24,7 @@ public class PatternMatcherUtilsTest {
         assertEquals(PatternMatcherUtils.trimLeadingAndTrailingDelimiter(testString3, Path.PATH_DELIMITER), trimmedTestString);
     }
     @Test
-    public void removeStringAtIndexTest()
-    {
+    public void removeStringAtIndexTest() {
         List<String> stringList = new ArrayList<String>();
         stringList.add("test");
         stringList.add("remove");

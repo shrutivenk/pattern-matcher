@@ -6,8 +6,7 @@ import java.util.stream.IntStream;
 
 public class PatternMatcherUtils {
 
-    public static String trimLeadingAndTrailingDelimiter(String stringToTrim, String delimiter)
-    {
+    public static String trimLeadingAndTrailingDelimiter(String stringToTrim, String delimiter) {
         StringBuilder sb = new StringBuilder(stringToTrim);
         if (stringToTrim.startsWith(delimiter))
             sb.deleteCharAt(0);
@@ -17,8 +16,7 @@ public class PatternMatcherUtils {
         return sb.toString();
     }
 
-    public static String removeStringAtIndex(List<String> patternElements, int indexToRemove, String joinString)
-    {
+    public static String removeStringAtIndex(List<String> patternElements, int indexToRemove, String joinString) {
         return IntStream.range(0, patternElements.size())
                 .filter(i -> i != indexToRemove)
                 .mapToObj(patternElements::get)

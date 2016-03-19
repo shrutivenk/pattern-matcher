@@ -34,14 +34,11 @@ public class Matcher {
      * @return List of all patterns with the least number of wildcards
      */
     private List<Pattern> findMatchedPatternsWithLeastWildcards() {
-
         Map<Integer, List<Pattern>> patternMap = allPossiblePatterns.stream()
-                .parallel()
                 .filter(this::isPatternAMatch)
                 .collect(Collectors.groupingBy(this::numberOfWildcardsInPattern));
 
         return patternMap.isEmpty() ? new ArrayList<>() : patternMap.get(Collections.min(patternMap.keySet()));
-
     }
 
     /**

@@ -8,15 +8,14 @@ public class PatternFinder {
     private List<Path> pathList;
     private Map<Integer, List<Pattern>> patternMap;
 
-    public PatternFinder(List<Path> pathList, Map<Integer, List<Pattern>> patternMap)
-    {
+    public PatternFinder(List<Path> pathList, Map<Integer, List<Pattern>> patternMap) {
         this.pathList = pathList;
         this.patternMap = patternMap;
     }
 
     public List<PrintableOutput> getBestMatches() {
 
-        return pathList.stream()
+            return pathList.stream()
                 .map(p -> {
                     if (patternMap.containsKey(p.getPathFieldValues().size())) {
                         Matcher matcher = new Matcher(p, patternMap.get(p.getPathFieldValues().size()));

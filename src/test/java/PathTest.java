@@ -26,5 +26,4 @@ public class PathTest {
 
         assertEquals(valuesList, path.getPathFieldValues());
     }
-
 }

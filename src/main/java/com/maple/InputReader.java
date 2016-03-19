@@ -43,7 +43,7 @@ public class InputReader {
                 .forEach(i -> {if (scanner.hasNext()) {
                     Pattern pattern = new Pattern(scanner.nextLine());
                     patternList.add(pattern);
-                }});
+                } else return;});
     }
 
     private void readPathsAndAddToList(Scanner scanner){
@@ -55,8 +55,9 @@ public class InputReader {
 
         IntStream.range(0, numberOfPaths)
                 .forEach(i -> {if (scanner.hasNext()) {
-                    Path path = new Path(scanner.nextLine());
+                    Path path = new Path(PatternMatcherUtils
+                            .trimLeadingAndTrailingDelimiter(scanner.nextLine(), Path.PATH_DELIMITER));
                     pathList.add(path);
-                }});
+                } else return;});
     }
 }

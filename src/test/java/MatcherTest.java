@@ -9,8 +9,7 @@ import static org.junit.Assert.assertEquals;
 public class MatcherTest {
 
     @Test
-    public void findBestMatchedPatternTest_NoMatch()
-    {
+    public void findBestMatchedPatternTest_NoMatch() {
         List<Pattern> patternList = new ArrayList<>();
         patternList.add(new Pattern("a,*,c,*,e"));
         patternList.add(new Pattern("*,b,c,d,*"));
@@ -26,8 +25,7 @@ public class MatcherTest {
     }
 
     @Test
-    public void findBestMatchedPattern_ExactMatch()
-    {
+    public void findBestMatchedPattern_ExactMatch() {
         List<Pattern> patternList = new ArrayList<>();
         patternList.add(new Pattern("a,b,c,d,*"));
         patternList.add(new Pattern("a,b,c,d,e"));
@@ -43,8 +41,7 @@ public class MatcherTest {
     }
 
     @Test
-    public void findWinningPatternTest_PicksLeastWildCard_NoTie()
-    {
+    public void findWinningPatternTest_PicksLeastWildCard_NoTie() {
         List<Pattern> patternList = new ArrayList<>();
         patternList.add(new Pattern("*,b,*,d,e"));
         patternList.add(new Pattern("*,b,c,*,e"));
@@ -60,8 +57,7 @@ public class MatcherTest {
     }
 
     @Test
-    public void findWinningPatternTest_PicksLeastWildCard_ResolveTie()
-    {
+    public void findWinningPatternTest_PicksLeastWildCard_ResolveTie() {
         List<Pattern> patternList = new ArrayList<>();
         patternList.add(new Pattern("*,b,*,*,e,f"));
         patternList.add(new Pattern("*,b,*,d,*,f"));
@@ -77,8 +73,7 @@ public class MatcherTest {
     }
 
     @Test
-    public void findWinningPatternTest_ResolveTie_fieldContainAsterisk()
-    {
+    public void findWinningPatternTest_ResolveTie_fieldContainAsterisk() {
         List<Pattern> patternList = new ArrayList<>();
         patternList.add(new Pattern("*,b,*,*,e*,f,g"));
         patternList.add(new Pattern("*,b,*,d,*,f,g"));
@@ -94,8 +89,7 @@ public class MatcherTest {
     }
 
     @Test
-    public void findWinningPatternTest_SpecialChars()
-    {
+    public void findWinningPatternTest_SpecialChars() {
         List<Pattern> patternList = new ArrayList<>();
         patternList.add(new Pattern("!!!,@@@,###,$$$"));
         patternList.add(new Pattern("!**,@**,*,$**"));

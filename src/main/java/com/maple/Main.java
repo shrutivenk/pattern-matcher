@@ -9,6 +9,6 @@ public class Main {
         new PatternFinder(inputReader.getPathList(), inputReader.getPatternMap())
                 .getBestMatches()
                 .stream()
-                .forEach(i -> i.printOutput());
+                .forEach(p -> p.printOutput());
     }
 }
