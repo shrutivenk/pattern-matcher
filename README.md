@@ -1,155 +1,37 @@
-Pattern-Matching Paths
+Solution Approach
+==================
+
+Quick summary of my approach:
+
+**Classes**
+
+- `Pattern`: Class representing the pattern
+- `Path`: Class representing the path
+- `PatternFinder`: Class responsible for creating a Matcher object for each Path with the corresponding list of same sized Patterns
+- `Matcher`: Class responsible for matching a path against a of patterns, resolve ties and return the best matched pattern
+- `InputReader`: Class that reads patterns, paths reads the paths and patterns and returns an InputData object containing a list of paths and a map of patterns
+grouped by the size
+- `PrintableOutput`: Class responsible for displaying matches / no matches
+
+
+Instructions To Run
+===================
+
+**Requirements:**
+
+- `Java` 1.8.0_73
+- `Maven` >= 3.3.9 (Preferably use Homebrew to install Maven `brew install maven`. If it's installed otherwise, set the environment variable  M2_HOME to the the maven bin directory )
+
+
+**Build Instructions**
+
+- Clone the repo
+- From the `project root` directory of the project run `mvn clean compile install`
+- From the `project root` CLI, run `java -jar target/pattern-matcher-1.0-SNAPSHOT.jar`
+- Feed the input in the format described in the README
+
+Algorithmic Complexity
 ======================
 
-Problem Description
--------------------
-
-You've been given two lists: the first is a list of patterns, the second
-is a list of slash-separated paths. Your job is to print, for each path,
-the pattern which best matches that path. ("Best" is defined more
-rigorously below, under "Output Format".)
-
-A pattern is a comma-separated sequence of non-empty fields. For a
-pattern to match a path, every field in the pattern must exactly match
-the corresponding field in the path. (Corollary: to match, a pattern and
-a path must contain the same number of fields.) For example: the pattern
-`x,y` can only match the path `x/y`. Note, however, that leading and
-trailing slashes in paths should be ignored, thus `x/y` and `/x/y/` are
-equivalent.
-
-Patterns can also contain a special field consisting of a *single
-asterisk*, which is a wildcard and can match any string in the path.
-
-For example, the pattern `A,*,B,*,C` consists of five fields: three
-strings and two wildcards. It will successfully match the paths
-`A/foo/B/bar/C` and `A/123/B/456/C`, but not `A/B/C`,
-`A/foo/bar/B/baz/C`, or `foo/B/bar/C`.
-
-
-Input Format
-------------
-
-The first line contains an integer, N, specifying the number of
-patterns. The following N lines contain one pattern per line. You may
-assume every pattern is unique. The next line contains a second integer,
-M, specifying the number of paths. The following M lines contain one
-path per line. The input will be UTF8-encoded, and your program must
-properly handle Unicode characters.
-
-Output Format
--------------
-
-For each path encountered in the input, print the *best-matching
-pattern*. The best-matching pattern is the one which matches the path
-using the fewest wildcards.
-
-If there is a tie (that is, if two or more patterns with the same number
-of wildcards match a path), prefer the pattern whose leftmost wildcard
-appears in a field further to the right. If multiple patterns' leftmost
-wildcards appear in the same field position, apply this rule recursively
-to the remainder of the pattern.
-
-For example: given the patterns `*,*,c` and `*,b,*`, and the path
-`/a/b/c/`, the best-matching pattern would be `*,b,*`.
-
-If no pattern matches the path, print `NO MATCH`.
-
-Like the input, the output must be UTF8-encoded.
-
-Submission Requirements
------------------------
-
-You should submit a working program, runnable from a command line, that
-reads from standard input and prints to standard output. In Unix
-parlance, for example, it should be runnable like this:
-
-    python your_program.py < input_file > output_file
-
-Of course, the actual command line may vary depending on the language
-you choose; your program file need not be executable on its own.
-However, it **must** read input directly from stdin and print to stdout.
-
-You may write your program in any of the following languages:
-
-* Clojure (1.6 or above)
-* Go (1.4 or above)
-* Haskell (GHC 7.8 or above)
-* Java (Java SE 8 or above)
-* JavaScript (Node.js 0.10 or above)
-* PHP (5.6 or above)
-* Perl5 (5.20 or above)
-* Python (2.7 or 3.x)
-* Ruby (2.1 or above)
-* Scala (2.10 or above)
-
-Be sure to state which version you used to run and test your program.
-
-Send source code, not compiled artifacts. For languages that require
-compilation, include some kind of makefile, e.g. Make, Ant, Maven, SBT,
-etc., with build instructions.
-
-Extra Credit
-------------
-
-What's the algorithmic complexity of your program? In other words, how
-does its running time change as the number of patterns or number of
-paths increases?
-
-Would your program complete quickly even when given hundreds of
-thousands of patterns and paths? Is there a faster solution?
-
-Hint: although a correct program is sufficient, there is extra credit
-for an algorithm that's better than quadratic. Some of our test cases
-are very large; to pass them all, your program will need to be fast.
-
-Example Input
--------------
-
-    6
-    *,b,*
-    a,*,*
-    *,*,c
-    foo,bar,baz
-    w,x,*,*
-    *,x,y,z
-    5
-    /w/x/y/z/
-    a/b/c
-    foo/
-    foo/bar/
-    foo/bar/baz/
-
-Example Output
---------------
-
-    *,x,y,z
-    a,*,*
-    NO MATCH
-    NO MATCH
-    foo,bar,baz
-
-Note about the examples
------------------------
-
-Because this document is in Markdown format, we have to indent every
-line in a pre-formatted code block by 4 spaces. Therefore, in both the
-example input and output above, you should pretend those 4 leading
-spaces aren't there, because they won't be in the actual test input.
-
-Tips
-----
-
-* Code correctness and quality matter more to us than algorithmic
-  wizardry. Is your program easy to understand? Is it clearly organized
-  and documented? Does it correctly handle all the edges cases? Imagine
-  you are writing a library for other developers to use. How would that
-  affect your design?
-* Your program's output must precisely match the expected output. Don't
-  print extraneous or superfluous stuff to stdout.
-* The example input and output provided above fail to cover a large
-  number of edge cases. To be sure your program is correct, you may want
-  to supplement it with your own test cases.
-* Every line in the input ends with a Unix-style newline (`"\n"`).
-  DOS-style CRLFs (`"\r\n"`) are not used.
-* Each line in the output should end with a newline character (that
-  includes the final one). As with the input, use Unix-style newlines.
+The time complexity of my algorithm is quadratic. However, I have made one small optimization on it. Since we group the patterns by size at the time of reading, for each path, we only need to run matches on patterns of corresponding size. In the worst case where all the paths and patterns are of the same size, the time complexity is O(M X N)
+We can make the program run faster for large data sets by by running matching on paths in parallel. I did try using parallelStream but for smaller data sets this causes the program to take longer to run due to the overhead of parallel processing so I left it out until I could write suitable tests to validate using this.
