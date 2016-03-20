@@ -16,6 +16,13 @@ public class Pattern {
         this.patternFieldValues = Arrays.asList(patternText.split(PATTERN_DELIMITER));
     }
 
+    public Pattern(Pattern pattern)
+    {
+        this.patternText = pattern.getPatternText();
+        this.patternFieldValues = Arrays.asList(patternText.split(PATTERN_DELIMITER));
+        this.parentPattern = pattern;
+    }
+
     public String getPatternText() { return this.patternText; }
 
     public List<String> getPatternFieldValues() { return this.patternFieldValues; }
@@ -23,6 +30,4 @@ public class Pattern {
     public Pattern getParentPattern() { return this.parentPattern; }
 
     public void setParentPattern(Pattern parentPattern) { this.parentPattern = parentPattern; }
-
-    public void setSelfAsParentPattern() { parentPattern = this; }
 }

@@ -16,14 +16,6 @@ public class PatternTest {
     }
 
     @Test
-    public void setSelfAsParentPatternTest() {
-        Pattern pattern = new Pattern("test");
-        pattern.setSelfAsParentPattern();
-
-        assertEquals(pattern.getParentPattern(), pattern);
-    }
-
-    @Test
     public void setParentPatternTest() {
         Pattern pattern = new Pattern("test");
         Pattern parentPattern = new Pattern("parentTest");

@@ -89,7 +89,7 @@ public class Matcher {
     }
 
     /**
-     * resolveTieBetweenTwoPatterns sets the parent pattern to itself and passes the two patterns to be resolved to the
+     * resolveTieBetweenTwoPatterns creates a new copy Pattern with parent as original and passes the two copy patterns to be resolved to the
      * resolveTieBetweenTwoPatternsRecursive method
      *
      * @param pattern1
@@ -97,10 +97,10 @@ public class Matcher {
      * @return best matched pattern between two patterns
      */
     private Pattern resolveTieBetweenTwoPatterns(Pattern pattern1, Pattern pattern2) {
-        pattern1.setSelfAsParentPattern();
-        pattern2.setSelfAsParentPattern();
+        Pattern pattern1copy = new Pattern(pattern1);
+        Pattern pattern2copy = new Pattern(pattern2);
 
-        return resolveTieBetweenTwoPatternsRecursive(pattern1, pattern2);
+        return resolveTieBetweenTwoPatternsRecursive(pattern1copy, pattern2copy);
     }
 
     /**

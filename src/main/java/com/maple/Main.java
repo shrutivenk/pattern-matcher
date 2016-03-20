@@ -4,9 +4,9 @@ public class Main {
 
     public static void main(String[] args) {
         InputReader inputReader = new InputReader();
-        inputReader.readIncomingData();
+        InputData inputData = inputReader.readIncomingData();
 
-        new PatternFinder(inputReader.getPathList(), inputReader.getPatternMap())
+        new PatternFinder(inputData.getPathList(), inputData.getPatternMap())
                 .getBestMatches()
                 .stream()
                 .forEach(p -> p.printOutput());
