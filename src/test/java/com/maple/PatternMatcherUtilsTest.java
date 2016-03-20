@@ -1,6 +1,5 @@
-import com.maple.Path;
-import com.maple.Pattern;
-import com.maple.PatternMatcherUtils;
+package com.maple;
+
 import org.junit.Test;
 
 import java.util.ArrayList;

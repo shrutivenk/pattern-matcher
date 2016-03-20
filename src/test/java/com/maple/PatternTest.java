@@ -1,4 +1,5 @@
-import com.maple.Pattern;
+package com.maple;
+
 import org.junit.Test;
 
 import java.util.ArrayList;

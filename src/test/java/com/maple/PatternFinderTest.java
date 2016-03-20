@@ -1,4 +1,5 @@
-import com.maple.*;
+package com.maple;
+
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,9 +1,10 @@
-import com.maple.Matcher;
-import com.maple.Path;
-import com.maple.Pattern;
+package com.maple;
+
 import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 public class MatcherTest {
