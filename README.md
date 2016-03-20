@@ -28,7 +28,7 @@ Instructions To Run
 - Clone the repo
 - From the `project root` directory of the project run `mvn clean compile install`
 - From the `project root` CLI, run `java -jar target/pattern-matcher-1.0-SNAPSHOT.jar`
-- Feed the input in the format described in the README
+- Feed the input in the format described in the PROBLEM_README
 
 Algorithmic Complexity
 ======================
