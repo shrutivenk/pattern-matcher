@@ -26,9 +26,11 @@ public class PatternFinder {
                     if (patternMap.containsKey(p.getPathFieldValues().size())) {
                         Matcher matcher = new Matcher(p, patternMap.get(p.getPathFieldValues().size()));
                         return new PrintableOutput(matcher.findBestMatchedPattern());
-                    } else
-                        return new PrintableOutput(Matcher.NO_MATCH);
+                    }
+                    return new PrintableOutput(Matcher.NO_MATCH);
                 })
                 .collect(Collectors.toList());
     }
+
+
 }

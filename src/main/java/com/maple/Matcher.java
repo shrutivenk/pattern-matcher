@@ -5,13 +5,13 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Matcher {
-    private Path path;
-    private List<Pattern> allPossiblePatterns;
     public static final String NO_MATCH = "NO MATCH";
+    private Path path;
+    private List<Pattern> sameLengthPatterns;
 
     public Matcher(Path path, List<Pattern> sameLengthPatterns) {
         this.path = path;
-        allPossiblePatterns = sameLengthPatterns;
+        this.sameLengthPatterns = sameLengthPatterns;
     }
 
     /**
@@ -40,11 +40,11 @@ public class Matcher {
      * @return List of all patterns with the least number of wildcards
      */
     private List<Pattern> findMatchedPatternsWithLeastWildcards() {
-        Map<Integer, List<Pattern>> patternMap = allPossiblePatterns.stream()
+        Map<Integer, List<Pattern>> patternMap = sameLengthPatterns.stream()
                 .filter(this::isPatternAMatch)
                 .collect(Collectors.groupingBy(this::numberOfWildcardsInPattern));
 
-        return patternMap.isEmpty() ? new ArrayList<>() : patternMap.get(Collections.min(patternMap.keySet()));
+        return patternMap.isEmpty() ? Collections.emptyList() : patternMap.get(Collections.min(patternMap.keySet()));
     }
 
     /**

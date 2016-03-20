@@ -10,31 +10,19 @@ import java.util.stream.IntStream;
 
 public class InputReader {
 
-    private List<Pattern> patternList;
-    private List<Path> pathList;
-
-    public InputReader() {
-        patternList = new ArrayList<Pattern>();
-        pathList = new ArrayList<Path>();
-    }
-
-    public void readIncomingData() {
+    public InputData readIncomingData() {
 
         Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8.name()).useDelimiter("\\n");
-        readPatternsAndAddToList(scanner);
-        readPathsAndAddToList(scanner);
+        Map <Integer,List<Pattern>> patternMap = readPatterns(scanner);
+        List<Path> pathList = readPaths(scanner);
         scanner.close();
+
+        return new InputData(pathList, patternMap);
     }
 
-    public Map<Integer, List<Pattern>> getPatternMap() {
-        return patternList.stream().collect(Collectors.groupingBy(i -> i.getPatternFieldValues().size()));
-    }
+    private Map<Integer, List<Pattern>> readPatterns(Scanner scanner) {
 
-    public List<Path> getPathList() {
-        return pathList;
-    }
-
-    private void readPatternsAndAddToList(Scanner scanner) {
+        List<Pattern> patternList = new ArrayList<Pattern>();
 
         while (!scanner.hasNextInt())
             scanner.nextLine();
@@ -48,9 +36,13 @@ public class InputReader {
                         patternList.add(pattern);
                     }
                 });
+
+        return patternList.stream().collect(Collectors.groupingBy(i -> i.getPatternFieldValues().size()));
     }
 
-    private void readPathsAndAddToList(Scanner scanner) {
+    private List<Path> readPaths(Scanner scanner) {
+
+        List<Path> pathList = new ArrayList<Path>();
 
         while (!scanner.hasNextInt())
             scanner.nextLine();
@@ -64,5 +56,7 @@ public class InputReader {
                         pathList.add(path);
                     }
                 });
+
+        return pathList;
     }
 }
