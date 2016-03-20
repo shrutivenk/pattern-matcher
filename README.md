@@ -13,6 +13,8 @@ Quick summary of my approach:
 grouped by the size
 - `PrintableOutput`: Class responsible for displaying matches / no matches
 
+The code does not handle exceptions as of now. If required, can be added in easily.
+
 Instructions To Run
 ===================
 
@@ -28,6 +30,9 @@ Instructions To Run
 - From the `project root` directory of the project run `mvn clean compile install`
 - From the `project root` CLI, run `java -jar target/pattern-matcher-1.0-SNAPSHOT.jar`
 - Feed the input in the format described in the PROBLEM_README
+
+**Additional Info**
+Also created CI job using SnapCI to run tests. You can give it a peek at -> https://snap-ci.com/shrutivenk/pattern-matcher (NOTE: To view, SnapCI requires minimum github access i.e email)
 
 Algorithmic Complexity
 ======================
